@@ -17,6 +17,11 @@ public class AllButtons : MonoBehaviour
         musicSlider.value = music.volume;
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+    }
+
 
     public void ExitScene()
     {

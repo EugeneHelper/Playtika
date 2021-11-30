@@ -11,6 +11,7 @@ public class FPController : MonoBehaviour
     public Slider healthbar;
     public Text ammoReserves;
     public Text ammoClipAmount;
+    public Text victoryText;
     public Transform shotDirection;
     public Animator anim;
     public AudioSource[] footsteps;
@@ -92,6 +93,7 @@ public class FPController : MonoBehaviour
             steve.GetComponent<Animator>().SetTrigger("Dance");
             GameStats.gameOver = true;
             Destroy(this.gameObject);
+            victoryText.text= "CONGRATULATIONS" +"\n"+"YOU ARE GREAT";
         }
     }
 
@@ -111,8 +113,16 @@ public class FPController : MonoBehaviour
 
         cWidth = canvas.GetComponent<RectTransform>().rect.width;
         cHeight = canvas.GetComponent<RectTransform>().rect.height;
+        Invoke("GetWeapon", 4f);
 
     }
+
+    void GetWeapon()
+    {
+        anim.SetBool("arm", !anim.GetBool("arm"));
+    }
+
+
 
     void ProcessZombieHit()
     {
@@ -146,9 +156,10 @@ public class FPController : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(shotDirection.transform.position, shotDirection.forward * 200, Color.red);
-        if (Input.GetKeyDown(KeyCode.F))
-            anim.SetBool("arm", !anim.GetBool("arm"));
-            
+        //if (Input.GetKeyDown(KeyCode.F))
+        //    anim.SetBool("arm", !anim.GetBool("arm"));
+
+        
 
         if (Input.GetMouseButtonDown(0) && !anim.GetBool("fire") && anim.GetBool("arm") && GameStats.canShoot)
         {
